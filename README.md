@@ -20,17 +20,17 @@ Having all that in mind we have to build the best architecture we can and here w
 
 ### So, what technologies are under the hood of ecomnext.com?
 
-Our first technical decision was the programing language. We love the JVM and we are proficiency in Java, so we chose it as main language. We also like Python and other languages which could be very convenient for some functionalities so we didn't wanted to prevent their use. That make us select Thrift as scalable cross-language services development framework.
+Our first technical decision was the programing language. We love the JVM and we are proficiency in Java, so we chose it as main language. We also like Python and other languages which could be very convenient for some functionalities so we didn't want to prevent their use. That make us select Thrift as scalable cross-language services development framework.
 
-Having chosen the main things, lets go for the rest of it. We are going to show the system from top to bottom.
+Having chosen the main things, let's go for the rest of it. We are going to show the system from top to bottom.
 
 At the top of the architecture we have two entry points.
 * The API. This module is used to track users behaviour and it can be used by our customers to retrieve data from our systems. The API has to be blazing fast, stateless and easy to integrate (a simple REST service). That requirements pointed us directly to <a href="http://netty.io/">Netty</a> based solutions and <a href="http://www.playframework.com/">playframework 2</a> was the perfect fit. We also can avoid to install a Servlet container like Tomcat or Jetty (although we need a reverse proxy like <a href="http://nginx.com/">Ngix</a>).
-* The dashboard. This web will be used by our customers to config the system and is a direct communication channel between them and us. The amount of users concurrently is very low and we had very good experience in similar projects with Spring MVC so that was chosen to.
+* The dashboard. This web will be used by our customers to config the system and is a direct communication channel between them and us. The amount of users concurrently is very low and we had very good experience in similar projects with Spring MVC that's why we chose it.
 
-There are some programs that run in the background, for example the one that process API tracking events or some others that perform tasks based on events or scheduled planifications. The events processor is a standard Java program with intensive threading use. In the future it is possible that we move it to a simplest Actors based model (<a href="http://akka.io/">akka</a> could be the one). The tasks are build on Spring Batch framework.
+There are some programs that run in the background, for example the one that process API tracking events or some others that perform tasks based on events or scheduled planifications. The events processor is a standard Java program with intensive threading use. In the future it is possible that we move it to a simpler Actors based model (<a href="http://akka.io/">akka</a> could be the one). The tasks are build on Spring Batch framework.
 
-All those modules from above need operate with services that are common for them and they are Thrift based.
+All those modules from above require to operate with services that are common for them and they are Thrift based.
 
 In the bottom we have the data sources:
 * PostgreSQL to store configurations and customer accounts.
@@ -56,7 +56,7 @@ To create an object of one Finagle class:
 
 	MyClass$.MODULE$.apply("Hello");
 
-This is a pain but what it is really painfully is getting the attributes of the object. We build many objects but we use much more get methods.
+This is a pain but what it is really painfully is getting the attributes of the object. We build many objects but we use much more 'get' methods.
 
 To get an attribute in Apache class:
 
